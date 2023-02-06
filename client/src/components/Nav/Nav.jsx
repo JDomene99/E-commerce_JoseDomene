@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
-import { setLogout } from "../../state/index";
+import { setLogout } from "../../state/user";
 import profilePhoto from "../../assets/profile_img.jpg";
 import HomeIcon from "@mui/icons-material/Home";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
@@ -18,7 +18,7 @@ function Nav() {
   const datauser = useSelector((state) => state.user);
   const [profile, setProfile] = useState(true);
   const [toggleButton, setToggleButton] = useState(true);
-  const { amount } = useSelector((state) => state.cart);
+  // const { amount } = useSelector((state) => state.cart);
   return (
     <>
       {!isNonMobileScreens ? (
@@ -193,7 +193,7 @@ function Nav() {
             <li>
               <Link to="/cart">
                 <ShoppingCartIcon />
-                {amount}
+                {/* {amount} */}
               </Link>
             </li>
 

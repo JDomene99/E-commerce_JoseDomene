@@ -11,11 +11,11 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     stock: {
-        type: Number,
+      type: Number,
     },
     price: {
       type: Number,
-  },
+    },
     img: String,
     likes: {
       type: Map,
@@ -27,15 +27,15 @@ const productSchema = mongoose.Schema(
     },
     size: {
       type: Array,
-      default: [],
     },
     category: {
       type: Object,
     },
   },
-  { timestamps: true,
-    versionKey: false, // para que no aparezca el __V 
-}
+  {
+    timestamps: true,
+    versionKey: false, // para que no aparezca el __V
+  }
 );
 
 const Product = mongoose.model("Product", productSchema);

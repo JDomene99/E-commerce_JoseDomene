@@ -3,15 +3,19 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import dataReducer from "./state/index";
+import userReducer from "./state/user";
+import cartReducer from "./state/cart";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
+import {combineReducers} from "redux"; 
+import thunk from 'redux-thunk'
+
 //para guardar la información
 import {
   persistStore,
   persistReducer,
   FLUSH,
-  REHYDRATE,
+  // REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
@@ -20,16 +24,13 @@ import {
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
+const reducers = combineReducers({ user : userReducer});
+
 const persistConfig = { key: "root", storage, version: 1 };
-const persistedReducer = persistReducer(persistConfig, dataReducer);
+const persistedReducer = persistReducer(persistConfig , userReducer);
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+  middleware: [thunk],
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(

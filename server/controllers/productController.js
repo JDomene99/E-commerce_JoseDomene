@@ -3,8 +3,9 @@ import Product from '../db/models/productModel.js';
 
 
 export const insertProduct = async (req, res) =>{
-  
+    
     try {
+        
         const {
           name,
           description,
@@ -26,7 +27,7 @@ export const insertProduct = async (req, res) =>{
           comments,
           category,
           price,
-          size
+          size 
         });
         const savedProduct = await newProduct.save();
         res.status(201).json(savedProduct);
@@ -60,6 +61,18 @@ export const getProduct = async (req, res) =>{
     try {
         const post = await Product.findById({ _id: req.params.id });
         res.json(post);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
+}
+
+export const updateProduct = async (req, res) =>{
+    try {
+        console.log(req);
+        const post = await Product.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        res.json(post);
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

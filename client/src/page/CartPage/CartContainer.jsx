@@ -1,14 +1,26 @@
 import React from 'react';
 import CartItem from './CartItem';
 import { useSelector,useDispatch } from 'react-redux';
-import { clearCart } from "../../state/index";
+import { clearCart } from "../../state/user";
+import { useNavigate } from "react-router-dom";
+
 const CartContainer = () => {
   const cartItems = useSelector((state) => state.cart);
-  
-  const dispatch = useDispatch();
   console.log(cartItems)
-    const amount = 2;
-    const total = 2;
+  const amount = 2;
+  const total = 2;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // const getTotalQuantity = () => {
+  //   let total = 0
+  //   cart.forEach(item => {
+  //     console.log(item);
+  //     total += item.quantity
+  //   })
+  //   return total
+  // }
+  
   if (amount < 1) {
     return (
       <section className='cart'>
@@ -40,13 +52,14 @@ const CartContainer = () => {
         <hr />
         <div className='cart-total'>
           <h4>
-            total <span>${total}</span>
+            {/* total <span>${getTotalQuantity()}</span> */}
           </h4>
         </div>
         <button
       className='btn clear-btn'
       onClick={() => {
         dispatch(clearCart());
+        navigate('/')
       }}
     >
       clear cart

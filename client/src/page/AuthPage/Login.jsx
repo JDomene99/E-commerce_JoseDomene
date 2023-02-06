@@ -12,7 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import { checkUser } from "../../api/auth";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../state/index";
+import { setLogin } from "../../state/user";
 
 function Login() {
 
