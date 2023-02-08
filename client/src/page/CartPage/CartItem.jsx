@@ -1,31 +1,36 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-// import { ChevronDown, ChevronUp } from '../icons';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeItem,incrementQuantity,decrementQuantity } from "../../state/cart";
+import DeleteIcon from '@mui/icons-material/Delete';
 
+const CartItem = ({ product }) => {
+  const dispatch = useDispatch();
+  const [category, setcategory] = useState('')
+  const [type, settype] = useState('')
+ 
+  useEffect(() => {
+    setcategory(product.category.name)
+    settype(product.category.type)
+  }, [])
+  
 
-const CartItem = ({product }) => {
-    const dispatch = useDispatch();
-   
   return (
-    <article className='cart-item'>
-      <img src={product.img} alt={product.name} />
-      <div>
-        <h4>{product.name}</h4>
-        <h4 className='item-price'>${product.price}</h4>
-        {/* remove button */}
-        <button className='remove-btn'>remove</button>
-      </div>
-      <div>
-        {/* increase amount */}
-        <button className='amount-btn'>
-          {/* <ChevronUp /> */}+
-        </button>
-        {/* amount */}
-        {/* <p className='amount'>{amount}</p> */}
-        {/* decrease amount */}
-        <button className='amount-btn'>
-          {/* <ChevronDown /> */}-
-        </button>
+    <article className="w-5/12 flex flex-row flex-wrap mx-auto  border-b-2 border-gray-300 py-5">
+      <img src={product.img} alt={product.name} className="w-4/12"/>
+      <div className="w-8/12 pl-5">
+        <h1 className="text-xl font-bold">{product.name}</h1>
+        <h1 className="text-sm">{category + ' / '+ type}</h1>
+        <h2 className="text-xl">${product.totalPrice}</h2>
+
+        <div>
+        <span className="">Cantidad: {product.quantity}</span>
+          <button  onClick={() => dispatch(incrementQuantity(product))}>➕</button>
+
+          <button  onClick={() => dispatch(decrementQuantity(product))}>➖</button>
+          
+        </div>
+        <button onClick={() => dispatch(removeItem(product))}><DeleteIcon/></button>
+        
       </div>
     </article>
   );

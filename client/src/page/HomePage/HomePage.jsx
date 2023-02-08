@@ -32,7 +32,7 @@ function HomePage() {
       <section>
         
         <h1>Best Sellers</h1>
-        <div className="relative flex items-center xs:w-12/12  sm:mx-auto xs:mx-auto xs:mb-4">
+        <div className="relative flex items-center xs:w-11/12  sm:mx-auto xs:mx-auto xs:mb-4">
           <ArrowBackIosIcon
             className="opacity-50 cursor-pointer hover:opacity-100"
             onClick={slideLeft}
@@ -47,8 +47,7 @@ function HomePage() {
               <button
                 key={i}
                 value={button.name}
-              
-                className="w-5/12 align-middle p-2 px-4 mx-1 rounded-md cursor-pointer hover:scale-105 ease-in-out duration-300"
+                className="w-4/12 align-middle p-2 px-4 mx-1 rounded-md cursor-pointer hover:scale-105 ease-in-out duration-300"
               >
                 <div className="flex flex-row relative justify-center ">
                   <img
@@ -57,9 +56,11 @@ function HomePage() {
                     src={button.img}
                     alt=""
                   />
-                  <h1 className="absolute bottom-0 w-full font-bold text-black bg-slate-300">
-                    {button.name}{" "}
+                 
+                  <h1 className="absolute bottom-0 w-full  text-black bg-slate-300">
+                    <span className="font-bold">{button.name}</span>   <span  className="">{button.price}$</span>    
                   </h1>
+                  
                 </div>
               </button>
             ))}

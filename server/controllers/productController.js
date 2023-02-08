@@ -78,3 +78,28 @@ export const updateProduct = async (req, res) =>{
     }
     
 }
+
+export const getProductSorter = async (req, res) =>{
+    try {
+        console.log(req.params.order);
+        const post = await Product.find().sort({price : req.params.order});
+        res.json(post);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
+}
+
+export const getProductFilter = async (req, res) =>{
+    try {
+        console.log(req.params);
+        const post = await Product.find(req.params);
+        res.json(post);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
+}
+

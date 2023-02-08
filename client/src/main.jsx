@@ -11,23 +11,14 @@ import {combineReducers} from "redux";
 import thunk from 'redux-thunk'
 
 //para guardar la información
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  // REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
-const reducers = combineReducers({ user : userReducer});
+const reducers = combineReducers({ user : userReducer, cart : cartReducer});
 
 const persistConfig = { key: "root", storage, version: 1 };
-const persistedReducer = persistReducer(persistConfig , userReducer);
+const persistedReducer = persistReducer(persistConfig , reducers);
 const store = configureStore({
   reducer: persistedReducer,
   middleware: [thunk],

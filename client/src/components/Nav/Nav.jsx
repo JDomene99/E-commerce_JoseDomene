@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -9,16 +10,25 @@ import profilePhoto from "../../assets/profile_img.jpg";
 import HomeIcon from "@mui/icons-material/Home";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+
+
 function Nav() {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const isNonMobileScreens = useMediaQuery("(min-width: 768px)");
   const dispatch = useDispatch();
 
-  const isAuth = Boolean(useSelector((state) => state.user));
+  const isAuth = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const datauser = useSelector((state) => state.user);
   const [profile, setProfile] = useState(true);
   const [toggleButton, setToggleButton] = useState(true);
-  // const { amount } = useSelector((state) => state.cart);
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
   return (
     <>
       {!isNonMobileScreens ? (
@@ -75,14 +85,13 @@ function Nav() {
                   </button>
                 </li>
 
-                {isAuth ? (
+                {isAuth.user == null ? (
                   <li>
                     <button
                       type="button"
                       className="pl-2 rounded-full "
                       onClick={() => setProfile(!profile)}
                     >
-
                       <img
                         className="w-8 h-8 rounded-full"
                         src={profilePhoto}
@@ -106,8 +115,9 @@ function Nav() {
                               <Button
                                 variant="contained"
                                 onClick={() => {
-                                  dispatch(setLogout()) 
-                                  setToggleButton(!toggleButton)}}
+                                  dispatch(setLogout());
+                                  setToggleButton(!toggleButton);
+                                }}
                               >
                                 logOut
                               </Button>
@@ -124,7 +134,6 @@ function Nav() {
                 <li className="flex flex-row ">
                   <HomeIcon className="m-3 " />{" "}
                   <Link
-                    
                     className="block py-2 pl-3 pr-4 text-black focus:text-white border-b border-gray-100"
                     to="/"
                   >
@@ -133,12 +142,73 @@ function Nav() {
                 </li>
                 <li className="flex flex-row  ">
                   <ShoppingBagIcon className="m-3 " />
-                  <Link
-                    className="block py-2 pl-3 pr-4 text-black focus:text-white border-b border-gray-100"
-                    to="/products"
-                  >
-                    Products
-                  </Link>
+                  <Menu as="div" className="relative inline-block text-left">
+                    <div>
+                      <Menu.Button className="block py-2 pl-3 pr-4 text-black focus:text-white border-b border-gray-100">
+                        Product
+                      </Menu.Button>
+                    </div>
+
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute left-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ">
+                        <div className="py-1">
+                        <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                                to="/products/all"
+                              >
+                                All Products
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                                to="/products/shoes"
+                              >
+                                Shoes
+                              </Link>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                                to="/products/clothes"
+                              >
+                                Clothes
+                              </Link>
+                            )}
+                          </Menu.Item>
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
                 </li>
                 <li className="flex flex-row  w-12/12">
                   <ImportContactsIcon className="m-3 " />
@@ -149,7 +219,7 @@ function Nav() {
                     Contact
                   </Link>
                 </li>
-                {!isAuth ? (
+                {isAuth.user == null ? (
                   <div className="flex flex-row gap-6 mt-6">
                     <li>
                       <Link to="/login">
@@ -181,7 +251,71 @@ function Nav() {
             </li>
 
             <li>
-              <Link to="/products">Products</Link>
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button>Product</Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="absolute left-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">
+                    <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                                className={classNames(
+                                  active
+                                    ? "bg-gray-100 text-gray-900"
+                                    : "text-gray-700",
+                                  "block px-4 py-2 text-sm"
+                                )}
+                                to="/products/all"
+                              >
+                                All Products
+                              </Link>
+                            )}
+                          </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm"
+                            )}
+                            to="/products/shoes"
+                          >
+                            Shoes
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            className={classNames(
+                              active
+                                ? "bg-gray-100 text-gray-900"
+                                : "text-gray-700",
+                              "block px-4 py-2 text-sm"
+                            )}
+                            to="/products/clothes"
+                          >
+                            Clothes
+                          </Link>
+                        )}
+                      </Menu.Item>
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
             </li>
 
             <li>
@@ -193,70 +327,40 @@ function Nav() {
             <li>
               <Link to="/cart">
                 <ShoppingCartIcon />
-                {/* {amount} */}
+                {cart.totalCount}
               </Link>
             </li>
 
-            {isAuth ? (
-              
-                  <li>
-                    <button
-                      type="button"
-                      className="pl-2 rounded-full "
-                      onClick={() => setProfile(!profile)}
-                    >
-
-                      <img
-                        className="w-8 h-8 rounded-full"
-                        src={profilePhoto}
-                      />
-                    </button>
-                    {profile ? (
-                      ""
-                    ) : (
-                      <div>
-                        <div className="z-50 absolute top-16 right-0 p-5 bg-white">
-                          <h2 className="block text-sm text-gray-900 dark:text-white">
-                            {datauser.name + " " + datauser.apellidos}
-                          </h2>
-                          <h2 className="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">
-                            {datauser.email}
-                          </h2>
-                          <ul className="py-2" aria-labelledby="user-menu-button">
-                          <li>
-                            <Link to="/loggout">
-                              <Button
-                                variant="contained"
-                                onClick={() => {
-                                  dispatch(setLogout()) 
-                                  setToggleButton(!toggleButton)}}
-                              >
-                                logOut
-                              </Button>
-                            </Link>
-                          </li>
-                        </ul>
-                        </div>
-                       
-                      </div>
-                    )}
-                  </li>
-                ) : (
-                  <div className="flex flex-row gap-6">
-                  <li>
-                    <Link to="/login">
-                      <Button variant="contained" color="inherit">
-                        Login
-                      </Button>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/register">
-                      <Button variant="contained">Register</Button>
-                    </Link>
-                  </li>
-                </div>
-                )}
+            {isAuth.user != null ? (
+              <li>
+                <Link to="/loggout">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      dispatch(setLogout());
+                      setToggleButton(!toggleButton);
+                    }}
+                  >
+                    logOut
+                  </Button>
+                </Link>
+              </li>
+            ) : (
+              <div className="flex flex-row gap-6">
+                <li>
+                  <Link to="/login">
+                    <Button variant="contained" color="inherit">
+                      Login
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/register">
+                    <Button variant="contained">Register</Button>
+                  </Link>
+                </li>
+              </div>
+            )}
           </div>
         </ul>
       )}

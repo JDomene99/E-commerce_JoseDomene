@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../../api/products";
-import ProductCard from "../../components/Product/ProductCard";
+import NavProducts from "./NavProducts";
+import Aside from "./Aside";
+import { Outlet  } from "react-router";
+import { useLocation } from 'react-router-dom'
 
 function ProductPage() {
-  const [products, setProduct] = useState([]);
-
-  async function fetchData() {
-    const response = await getProducts();
-    setProduct(response);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  const location = useLocation();
+  const product = location.pathname.split('/')[2]
   return (
-    <div className="flex flex-row flex-wrap text-center justify-center gap-10">
-      {products.map((product) => {
-        return <ProductCard key={product._id} product={product} />;
-      })}
-    </div>
+    <main className="flex flex-row flex-wrap mx-20">
+      <NavProducts className="w-full" />
+      <Aside className="w-2/12"/>
+      <Outlet context={{ data: product }} className="w-10/12"/>
+    </main>
   );
 }
 

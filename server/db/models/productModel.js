@@ -16,6 +16,9 @@ const productSchema = mongoose.Schema(
     price: {
       type: Number,
     },
+    type: {
+      type: String,
+    },
     img: String,
     likes: {
       type: Map,

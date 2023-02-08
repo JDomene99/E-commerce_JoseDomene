@@ -1,10 +1,29 @@
 export const getProducts = async () => {
-  
+    
     const response = await fetch("http://localhost:4000/products");
     const data = await response.json();
 
     return data;
   };
+
+  export const getProductsSorter = async (sort) => {
+  
+    const response = await fetch(`http://localhost:4000/products/sort/${sort}`);
+    const data = await response.json();
+
+    return data;
+  };
+  export const getProductFilter = async (type) => {
+
+    let url = '';
+    type === 'all' ? url = `http://localhost:4000/products/${type}` : url = `http://localhost:4000/products/category/${type}`
+
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  };
+
+  
 
 export const insertProduct = async (product) => {
   try {

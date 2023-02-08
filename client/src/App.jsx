@@ -6,7 +6,10 @@ import HomePage from "./page/HomePage/HomePage";
 import ProductPage from "./page/ProductPage/ProductPage";
 import CartContainer from "./page/CartPage/CartContainer";
 import ProductView from "./components/Product/ProductView";
-
+import Footer from "./components/Footer/Footer";
+import ShoesPage from "./page/ProductPage/ShoesPage";
+import ClothesPage from "./page/ProductPage/ClothesPage";
+import AllProducts from "./page/ProductPage/AllProducts";
 function App() {
 
   
@@ -17,10 +20,18 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={ <Register/>} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/products" element={<ProductPage />} />
+        
         <Route path="/cart" element={<CartContainer />} />
         <Route path="/product/:id" element={<ProductView />} />
+
+        <Route path="/products" element={<ProductPage />} >
+          <Route path="all" element={<AllProducts />} />
+          <Route path="clothes" element={<ClothesPage />} />
+          <Route path="shoes" element={<ShoesPage />} />
+        </Route>
+        
       </Routes>
+      <Footer/>
     </>
   );
 }
