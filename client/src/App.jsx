@@ -7,8 +7,8 @@ import ProductPage from "./page/ProductPage/ProductPage";
 import CartContainer from "./page/CartPage/CartContainer";
 import ProductView from "./components/Product/ProductView";
 import Footer from "./components/Footer/Footer";
-import ShoesPage from "./page/ProductPage/ShoesPage";
-import ClothesPage from "./page/ProductPage/ClothesPage";
+// import ShoesPage from "./page/ProductPage/ShoesPage";
+// import ClothesPage from "./page/ProductPage/ClothesPage";
 import AllProducts from "./page/ProductPage/AllProducts";
 function App() {
 
@@ -26,8 +26,8 @@ function App() {
 
         <Route path="/products" element={<ProductPage />} >
           <Route path="all" element={<AllProducts />} />
-          <Route path="clothes" element={<ClothesPage />} />
-          <Route path="shoes" element={<ShoesPage />} />
+          <Route path="clothes" element={<AllProducts />} />
+          <Route path="shoes" element={<AllProducts />} />
         </Route>
         
       </Routes>

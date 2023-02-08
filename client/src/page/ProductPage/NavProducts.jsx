@@ -9,14 +9,23 @@ function NavProducts() {
         return classes.filter(Boolean).join(" ");
       }
 
-      
-  const shoesSize = [35, 36, 37, 38, 39, 40, 41, 42, 43, 43, 44, 45, 46, 47];
-  const clothesSize = ["XS", "S", "M", "L", "XL", "XXL"];
+      const sortHightToLow = async () => {
+        setProduct([]);
+        const response = await getProductsSorter(-1);
+        setProduct(response);
+      };
+    
+      const sortLowToHight = async () => {
+        setProduct([]);
+        const response = await getProductsSorter(1);
+        setProduct(response);
+      }; 
+
 
       const [toglleIcon, setToglleIcon] = useState(false);
   return (
     <nav className="flex flex-row flex-wrap justify-between mx-auto w-full">
-    {/* <h1 className="text-gray-500">{products.length} resultados</h1> */}
+   
 
     <div>
       <button onClick={() => setAside(!aside)}>

@@ -3,15 +3,18 @@ import NavProducts from "./NavProducts";
 import Aside from "./Aside";
 import { Outlet  } from "react-router";
 import { useLocation } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 function ProductPage() {
   const location = useLocation();
   const product = location.pathname.split('/')[2]
+  const size = useSelector((state) => state.product);
+
   return (
     <main className="flex flex-row flex-wrap mx-20">
       <NavProducts className="w-full" />
-      <Aside className="w-2/12"/>
-      <Outlet context={{ data: product }} className="w-10/12"/>
+      <Aside type={product} className="w-2/12"/>
+      <Outlet context={{ data: product , size : size.size}} className="w-10/12"/>
     </main>
   );
 }

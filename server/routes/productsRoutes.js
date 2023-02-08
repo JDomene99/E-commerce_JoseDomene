@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllProduct, insertProduct, deleteProduct, getProduct, updateProduct, getProductSorter,getProductFilter } from "../controllers/productController.js";
+import { getAllProduct, insertProduct, deleteProduct, getProduct, updateProduct, getProductSorter,getProductFilter, getProductBySize } from "../controllers/productController.js";
 
   
 const router = Router();
@@ -13,6 +13,8 @@ router.get("/product/:id", getProduct);
 router.get("/products/sort/:order", getProductSorter);
 
 router.get("/products/category/:type", getProductFilter);
+
+router.get("/products/:size", getProductBySize);
 
 router.put("/product/:id", updateProduct);
 

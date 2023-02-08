@@ -103,3 +103,15 @@ export const getProductFilter = async (req, res) =>{
     
 }
 
+export const getProductBySize = async (req, res) =>{
+    try {
+        const post = await Product.find({size : parseInt(req.params.size)});
+        res.json(post);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
+}
+
+

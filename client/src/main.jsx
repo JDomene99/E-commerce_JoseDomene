@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import userReducer from "./state/user";
 import cartReducer from "./state/cart";
+import productReducer from "./state/products";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import {combineReducers} from "redux"; 
@@ -15,7 +16,7 @@ import { persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
-const reducers = combineReducers({ user : userReducer, cart : cartReducer});
+const reducers = combineReducers({ user : userReducer, cart : cartReducer, product : productReducer});
 
 const persistConfig = { key: "root", storage, version: 1 };
 const persistedReducer = persistReducer(persistConfig , reducers);

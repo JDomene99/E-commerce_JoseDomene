@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   cart: [],
   total: 0,
-  totalCount: 0
-
+  totalCount: 0,
 };
 
 export const cartSlice = createSlice({
@@ -17,42 +16,41 @@ export const cartSlice = createSlice({
       );
       if (itemInCart) {
         itemInCart.quantity++;
-        itemInCart.totalPrice += itemInCart.price
-        state.total = itemInCart.totalPrice
+        itemInCart.totalPrice += itemInCart.price;
+        state.total = itemInCart.totalPrice;
       } else {
-        state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price });
-        state.total += action.payload.price
-        state.totalCount =  state.totalCount +1; 
+        state.cart.push({
+          ...action.payload,
+          quantity: 1,
+          totalPrice: action.payload.price,
+        });
+        state.total += action.payload.price;
+        state.totalCount = state.totalCount + 1;
       }
     },
     clearCart: (state) => {
       state.cart = [];
-      state.total = 0
+      state.total = 0;
     },
     incrementQuantity: (state, action) => {
       const item = state.cart.find((item) => item._id === action.payload._id);
       if (item) {
         item.quantity++;
-        item.totalPrice += item.price
-        state.total += item.price
+        item.totalPrice += item.price;
+        state.total += item.price;
       } else {
         state.cart.push({ ...action.payload, quantity: 1 });
       }
-      
-
     },
     decrementQuantity: (state, action) => {
       const item = state.cart.find((item) => item._id === action.payload._id);
       if (item.quantity === 1) {
         item.quantity = 1;
-        
       } else {
         item.quantity--;
-        item.totalPrice -= item.price
-        state.total -= item.price
+        item.totalPrice -= item.price;
+        state.total -= item.price;
       }
-      
-
     },
     removeItem: (state, action) => {
       const removeItem = state.cart.filter(
@@ -61,15 +59,13 @@ export const cartSlice = createSlice({
       const removeItem2 = state.cart.find(
         (item) => item._id == action.payload._id
       );
-      if(removeItem2){
-        console.log(removeItem.totalPrice)
-        state.total -= removeItem2.totalPrice
-       
+      if (removeItem2) {
+        console.log(removeItem.totalPrice);
+        state.total -= removeItem2.totalPrice;
       }
       state.cart = removeItem;
-      state.totalCount =  state.totalCount -1; 
+      state.totalCount = state.totalCount - 1;
     },
-    
   },
 });
 

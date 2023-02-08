@@ -22,7 +22,13 @@ export const getProducts = async () => {
     const data = await response.json();
     return data;
   };
+  export const getProductsBySize = async (size) => {
+  
+    const response = await fetch(`http://localhost:4000/products/${size}`);
+    const data = await response.json();
 
+    return data;
+  };
   
 
 export const insertProduct = async (product) => {
