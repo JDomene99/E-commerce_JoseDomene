@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-stone-900 py-4 flex 2xl:flex-row xs:flex-col ">
+    <footer className="bg-stone-900 py-4 flex xs:flex-col sm:flex-row sm:text-center">
       <ul className="text-white font-bold 2xl:w-6/12 xs:w-full 2xl:text-center">
         <li>
           <a target="_self" href="https://www.nike.com/es/tarjetas-de-regalo">

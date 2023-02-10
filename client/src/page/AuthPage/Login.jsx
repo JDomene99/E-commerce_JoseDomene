@@ -27,7 +27,12 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="xs:w-10/12 md:w-6/12  mx-auto">
+
+<header className="text-center">
+        <h1 className="text-2xl font-bold my-10">You can login  up now!</h1>
+      </header>
+
       <Formik
         initialValues={{
           email: "",
@@ -35,10 +40,10 @@ function Login() {
         }}
         onSubmit={ async (values) => {
           try {
-            console.log(values);
+           
             const logged = await checkUser(values)
             if(logged){
-              console.log(logged.user);
+             
               dispatch(
                 setLogin({
                   user: logged.user
@@ -53,7 +58,7 @@ function Login() {
         }}
       >
         {({ values, handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit} className="flex flex-col xl:w-4/12 xl:mx-auto gap-y-8 pt-20">
+          <Form onSubmit={handleSubmit} className="flex flex-col xl:w-12/12 xl:mx-auto gap-y-8 px-20 py-24 mb-20 border-2 border-black">
             <TextField
               label="Email"
               name="email"
@@ -86,9 +91,9 @@ function Login() {
             />
           </FormControl>
 
-            <Button variant="outlined" type="submit" size="large">
+            <button className="bg-black px-10 py-2 border-4 border-white text-white rounded-lg hover:opacity-70" type="submit" >
               Login
-            </Button>
+            </button>
           </Form>
         )}
       </Formik>

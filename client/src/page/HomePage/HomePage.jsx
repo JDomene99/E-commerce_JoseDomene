@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
+import homePage from "../../assets/homePage_Jordan.jpg";
 import "./style.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { getProducts } from "../../api/products";
+import { getProductFilter } from "../../api/products";
+import { useMediaQuery } from "@mui/material";
+import { Link } from "react-router-dom";
+
 function HomePage() {
   const [products, setProduct] = useState([]);
-
+  const isNonMobileScreens = useMediaQuery("(min-width: 450px)");
   async function fetchData() {
-    const response = await getProducts();
+    const response = await getProductFilter("all");
     setProduct(response);
   }
 
@@ -26,18 +30,43 @@ function HomePage() {
   };
 
   return (
-    <div className="2xl:px-40">
-      <section className="homePage h-[800px] bg-contain bg-no-repeat mx"></section>
+    <div className="2xl:px-10">
+      <section className="bg-contain bg-no-repeat mx">
+        <img src={homePage} alt="" />
+      </section>
 
-      <section>
-        
-        <h1>Best Sellers</h1>
+      <section className="text-center w-10/12 mx-auto pb-20">
+        <h1 className="md:text-8xl xs:text-3xl  pb-5 pt-20 font-bold">FEEL THEM. BELIEVE IT.</h1>
+        <p className="pb-5">
+          Our most cushioned road running shoe gives you great comfort, ultimate
+          softness, and lightweight support mile after mile.
+        </p>
+
+        <Link to="/products/clothes">
+          <button className="bg-black px-10 py-2 border-4 border-white text-white rounded-3xl hover:opacity-70">
+            Shop Clothes
+          </button>
+        </Link>
+
+        <Link to="/products/shoes">
+          <button className="bg-black px-10 py-2 border-4 border-white text-white rounded-3xl hover:opacity-70">
+            Shop Shoes
+          </button>
+        </Link>
+      </section>
+
+      <section className="text-center">
+        <h1 className="font-bold text-xl">Best Sellers</h1>
         <div className="relative flex items-center xs:w-11/12  sm:mx-auto xs:mx-auto xs:mb-4">
-          <ArrowBackIosIcon
-            className="opacity-50 cursor-pointer hover:opacity-100"
-            onClick={slideLeft}
-            size={70}
-          />
+          {isNonMobileScreens ? (
+            <ArrowBackIosIcon
+              className="opacity-50 cursor-pointer hover:opacity-100"
+              onClick={slideLeft}
+              size={70}
+            />
+          ) : (
+            ""
+          )}
 
           <div
             id="slider"
@@ -47,30 +76,33 @@ function HomePage() {
               <button
                 key={i}
                 value={button.name}
-                className="w-4/12 align-middle p-2 px-4 mx-1 rounded-md cursor-pointer hover:scale-105 ease-in-out duration-300"
+                className="w-5/12 align-middle p-2 px-4 mx-1 rounded-md cursor-pointer hover:scale-105 ease-in-out duration-300"
               >
-                <div className="flex flex-row relative justify-center ">
+                <div className="flex flex-col relative justify-center ">
                   <img
                     value={button.name}
-                    className="m-auto w-12/12"
+                    className=" w-12/12"
                     src={button.img}
                     alt=""
                   />
-                 
-                  <h1 className="absolute bottom-0 w-full  text-black bg-slate-300">
-                    <span className="font-bold">{button.name}</span>   <span  className="">{button.price}$</span>    
+
+                  <h1 className="absolute bottom-0 text-black bg-slate-300 xs:text-[10px] xs:w-full">
+                    <span className="font-bold">{button.name}</span>
                   </h1>
-                  
                 </div>
               </button>
             ))}
           </div>
 
-          <ArrowForwardIosIcon
-            className="opacity-50 cursor-pointer hover:opacity-100"
-            onClick={slideRight}
-            size={70}
-          />
+          {isNonMobileScreens ? (
+            <ArrowForwardIosIcon
+              className="opacity-50 cursor-pointer hover:opacity-100"
+              onClick={slideRight}
+              size={70}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </div>

@@ -3,18 +3,27 @@ import NavProducts from "./NavProducts";
 import Aside from "./Aside";
 import { Outlet  } from "react-router";
 import { useLocation } from 'react-router-dom'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSize, setOrder } from "../../state/products";
+import { useMediaQuery } from "@mui/material";
 
 function ProductPage() {
+  
   const location = useLocation();
   const product = location.pathname.split('/')[2]
   const size = useSelector((state) => state.product);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSize(null));
+    dispatch(setOrder(null))
+  }, [])
+ 
   return (
-    <main className="flex flex-row flex-wrap mx-20">
-      <NavProducts className="w-full" />
-      <Aside type={product} className="w-2/12"/>
-      <Outlet context={{ data: product , size : size.size}} className="w-10/12"/>
+    <main className="flex flex-row flex-wrap mx-10">
+      <Aside type={product}/>
+      <Outlet context={{ data: product , size : size.size, order : size.order}} />
     </main>
   );
 }

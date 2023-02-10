@@ -23,13 +23,13 @@ function ProductView() {
     dispatch(addToCart(product));
   };
   return (
-    <div  className="px-32 py-10">
+    <div  className="lg:px-32 xs:px-4 py-10">
       {product != undefined ? (
-        <div className="flex flex-row flex-wrap">
-          <img src={product.img} alt={product.name} className="w-5/12" />
+        <div className="flex lg:flex-row flex-wrap md:flex-col">
+          <img src={product.img} alt={product.name} className="lg:w-5/12 xs:w-12/12" />
 
-          <div className="w-6/12 pl-8">
-            <h1 className="text-xl font-bold">{product.name}</h1>
+          <div className="lg:w-6/12 xs:w-12/12 xs:text-center lg:pl-8">
+            <h1 className="text-xl font-bold xs:mt-6">{product.name}</h1>
             <h1 className="font-bold pb-6">{product.price}$</h1>
             <h2>Selecciona tu talla</h2>
             <div className="flex flex-row flex-wrap gap-4 text-center pt-3 pb-6">

@@ -1,38 +1,48 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSize } from "../../state/products";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useMediaQuery } from "@mui/material";
+import NavProducts from "./NavProducts";
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import CloseIcon from '@mui/icons-material/Close';
+import Nav from "../../components/Nav/Nav";
 
 function Aside({ type }) {
+  const isNonMobileScreens = useMediaQuery("(min-width: 970px)");
+  const [list, setToggleList] = useState(false);
+  const [toglleIcon, setToglleIcon] = useState(false);
+  const dispatch = useDispatch();
+  const [filter, toggleFilters] = useState(false);
   const shoesSize = {
     name: "Shoes",
-    array: [34,35, 36, 37, 38, 39, 40, 41, 42, 43, 43, 44, 45, 46, 47,48,49,50],
+    array: [
+      38, 39, 40, 41, 42, 43, 43, 44, 45, 46,
+    ],
   };
   const clothesSize = {
     name: "Clothes",
-    array: ["XS", "S", "M", "L", "XL", "XXL"],
+    array: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
   };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleButton = (size) =>{
-    console.log(size)
+  const handleButton = (size) => {
     dispatch(setSize(size));
-    // navigate('/products/shoes');
-  }
+  };
 
   function ArticleSize({ type }) {
     return (
-      <article className="pl-4 pt-7">
-        <h3 className="font-bold">Filter By {type.name} Size</h3>
+      <article className=" text-left">
+        <h3 className="font-bold ">Filter By {type.name} Size</h3>
 
-        <div className="flex flex-row flex-wrap gap-4 text-center pt-3 pb-6">
+        <div className="flex flex-row flex-wrap gap-4  justify-start pt-3 pb-6">
           {type.array.map((size, i) => {
             return (
               <button
                 key={i}
                 className="border-gray-300 border-2 p-2 hover:border-black focus:bg-black focus:text-white"
-                onClick={ () => handleButton(size)}
+                onClick={() => handleButton(size)}
               >
                 {size}{" "}
               </button>
@@ -44,30 +54,154 @@ function Aside({ type }) {
   }
 
   return (
-    <aside className="w-2/12">
-      <article className="pl-4">
-        <h3 className="font-bold">Filter By Category</h3>
-        <div className="flex flex-col  justify-start">
-          <Link to="/products/all">All Products</Link>
+    <aside className={` pr-7 ${isNonMobileScreens ? "w-2/12" : "w-12-/12 flex justify-start text-left"}`}>
+      {isNonMobileScreens ? (
+        //Desktop Nav
+        <nav className="h-screen sticky top-20">
+          <NavProducts />
+          <article className=" py-5">
+            <button
+              className="flex flex-row"
+              onClick={() => {
+                setToggleList(!list);
+                setToglleIcon(!toglleIcon);
+              }}
+            >
+              <h3 className="font-bold">By Category</h3>
+              {toglleIcon ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+            </button>
 
-          <Link to="/products/shoes">Shoes</Link>
+            {list ? (
+              <div className="flex flex-col  justify-start">
+                <Link
+                  to="/products/all"
+                  onClick={() => {
+                    dispatch(setSize(null));
+                    dispatch(setOrder(null));
+                  }}
+                >
+                  All Products
+                </Link>
 
-          <Link to="/products/clothes">Clothes</Link>
-        </div>
-      </article>
+                <Link
+                  to="/products/shoes"
+                  onClick={() => {
+                    dispatch(setSize(null));
+                    dispatch(setOrder(null));
+                  }}
+                >
+                  Shoes
+                </Link>
 
-      {type == "all" ? (
-        <div>
-          <ArticleSize type={clothesSize} />
-          <ArticleSize type={shoesSize} />
-        </div>
-      ) : type === "shoes" ? (
-        <ArticleSize type={shoesSize} />
-      ) : (
-        <ArticleSize type={clothesSize} />
+                <Link
+                  to="/products/clothes"
+                  onClick={() => {
+                    dispatch(setSize(null));
+                    dispatch(setOrder(null));
+                  }}
+                >
+                  Clothes
+                </Link>
+              </div>
+            ) : (
+              ""
+            )}
+          </article>
+
+          {type == "all" ? (
+            <div>
+              <ArticleSize type={clothesSize} />
+              <ArticleSize type={shoesSize} />
+            </div>
+          ) : type === "shoes" ? (
+            <ArticleSize type={shoesSize} />
+          ) : (
+            <ArticleSize type={clothesSize} />
+          )}
+        </nav>
+      ) :
+      //Mobile Nav
+      (
+        <nav className="flex flex-col justify-start text-left">
+          {filter ? (
+            <div className="flex flex-col justify-start">
+              <button onClick={() => toggleFilters(!filter)} className="text-left"><CloseIcon/></button>
+              <div className="flex flex-col">
+                <NavProducts/>
+                <button
+                  className="flex flex-row mr-0"
+                  onClick={() => {
+                    setToggleList(!list);
+                    setToglleIcon(!toglleIcon);
+                  }}
+                >
+                  <h3 className="font-bold">Filter By Category</h3>
+                  {toglleIcon ? (
+                    <KeyboardArrowDownIcon />
+                  ) : (
+                    <KeyboardArrowUpIcon />
+                  )}
+                </button>
+
+                {list ? (
+                  <div className="flex flex-col justify-start text-left">
+                    <Link
+                      to="/products/all"
+                      onClick={() => {
+                        dispatch(setSize(null));
+                        dispatch(setOrder(null));
+                      }}
+                    >
+                      All Products
+                    </Link>
+
+                    <Link
+                      to="/products/shoes"
+                      onClick={() => {
+                        dispatch(setSize(null));
+                        dispatch(setOrder(null));
+                      }}
+                    >
+                      Shoes
+                    </Link>
+
+                    <Link
+                      to="/products/clothes"
+                      onClick={() => {
+                        dispatch(setSize(null));
+                        dispatch(setOrder(null));
+                      }}
+                    >
+                      Clothes
+                    </Link>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className="">
+                  {type == "all" ? (
+                    <div>
+                      <ArticleSize type={clothesSize} />
+                      <ArticleSize type={shoesSize} />
+                    </div>
+                  ) : type === "shoes" ? (
+                    <ArticleSize type={shoesSize} />
+                  ) : (
+                    <ArticleSize type={clothesSize} />
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <nav className="flex flex-col justify-start" >
+              <button onClick={() => toggleFilters(!filter)} className="text-left"><FilterAltIcon/></button>
+            </nav>
+            
+          )}
+        </nav>
       )}
 
-      {}
+    
     </aside>
   );
 }

@@ -6,14 +6,14 @@ function ProductCard({ product }) {
 
   return (
     <button
-      className="xs:w-5/12 lg:w-3/12 2xl:w-3/12"
+      className="w-12/12"
       onClick={() => navigate(`/product/${product._id}`)}
     >
-      <div>
+      <div className="text-left">
         <img src={product.img} alt=""  className=""/>
-
         <h3 className="font-bold">{product.name}</h3>
-        <h3 className="font-bold">{product.price} $</h3>
+        <h3 className="text-gray-500">{product.category.name}</h3>
+        <h3 className="text-gray-500 font-semibold">{product.price} $</h3>
       </div>
     </button>
   );

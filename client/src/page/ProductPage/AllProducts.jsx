@@ -1,39 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { getProductFilter,getProductsBySize } from "../../api/products";
+import { getProductFilter, getProductsBySize } from "../../api/products";
 import ProductCard from "../../components/Product/ProductCard";
 import { useOutletContext } from "react-router-dom";
-// import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setSize } from "../../state/products";
+import { useMediaQuery } from "@mui/material";
 
 function AllProducts({}) {
+  const isNonMobileScreens = useMediaQuery("(min-width: 970px)");
   const [products, setProduct] = useState([]);
-  const { data, size } = useOutletContext();
-  const dispatch = useDispatch();
-//   const size = useSelector((state) => state.product);
-  
+  const { data, size, order } = useOutletContext();
 
   async function fetchData() {
-    console.log('ada')
     setProduct([]);
     let response;
-    console.log(size)
-    size !==null ? response = await getProductsBySize(size) :  response = await getProductFilter(data)
-    dispatch(setSize(null));
-    
-    setProduct(response);
+    size !== null
+      ? (response = await getProductsBySize(size))
+      : (response = await getProductFilter(data));
+
+    if (order !== null) {
+      const cloneArray = [...response];
+      cloneArray.sort(function (a, b) {
+        if (order == -1) {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      });
+      setProduct(cloneArray);
+    } else {
+      setProduct(response);
+    }
   }
 
   useEffect(() => {
     fetchData();
-  }, [data || size]);
-  
+  }, [size, order, data]);
+
   return (
-    <section className="w-10/12 flex flex-row flex-wrap text-center justify-center gap-10 py-5  mx-auto">
-         <h1 className="text-gray-500 w-full text-start">{products.length} resultados</h1>
-      {products.map((product) => {
-        return <ProductCard key={product._id} product={product} />;
-      })}
+    <section className={` ${isNonMobileScreens ? 'w-10/12' : 'w-10-/12'} pb-10`}>
+      <header className="text-gray-500 w-full text-start">
+        {products.length} resultados
+      </header>
+
+      <article className="w-full grid xs:grid-cols-2 lg:grid-cols-3 gap-10">
+        {products.length <= 0 ? (
+          <h1 className=" text-xl font-bold">no result found :(</h1>
+        ) : (
+          products.map((product) => {
+            return <ProductCard key={product._id} product={product} />;
+          })
+        )}
+      </article>
     </section>
   );
 }

@@ -105,7 +105,37 @@ export const getProductFilter = async (req, res) =>{
 
 export const getProductBySize = async (req, res) =>{
     try {
-        const post = await Product.find({size : parseInt(req.params.size)});
+        let size;
+       
+        const post = await Product.find({size : parseInt(req.params.size) || req.params.size });
+        res.json(post);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
+}
+
+export const getProductAllFilter = async (req, res) =>{
+    try {
+       console.log(req.params);
+       const name = req.params.name
+
+        // const type = {size : parseInt(req.params.size) || req.params.size }
+        const post = await Product.find(req.params);
+        res.json(post);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+    
+}
+export const getbyName = async (req, res) =>{
+    try {
+       console.log(req.params);
+       const name = req.params.name
+    
+        const post = await Product.find(req.params);
         res.json(post);
 
     } catch (error) {

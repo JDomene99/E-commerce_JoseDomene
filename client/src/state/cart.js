@@ -31,6 +31,7 @@ export const cartSlice = createSlice({
     clearCart: (state) => {
       state.cart = [];
       state.total = 0;
+      state.totalCount = 0;
     },
     incrementQuantity: (state, action) => {
       const item = state.cart.find((item) => item._id === action.payload._id);
