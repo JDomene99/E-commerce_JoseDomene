@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import User from '../db/models/userModel.js';
 
 export const register = async (req, res) => {
-
+  console.log(req.params);
     try {
       const {
         name,
@@ -15,7 +15,7 @@ export const register = async (req, res) => {
       
       const salt = await bcrypt.genSalt();
       const passwordHash = await bcrypt.hash(password, salt);
-      
+
       const newUser = new User({
         name,
         apellidos,
@@ -23,6 +23,7 @@ export const register = async (req, res) => {
         password: passwordHash,
         picturePath,
       });
+      
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
     } catch (err) {

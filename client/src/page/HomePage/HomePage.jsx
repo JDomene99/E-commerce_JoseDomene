@@ -5,9 +5,11 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { getProductFilter } from "../../api/products";
 import { useMediaQuery } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomePage() {
+
+  const navigate = useNavigate()
   const [products, setProduct] = useState([]);
   const isNonMobileScreens = useMediaQuery("(min-width: 450px)");
   async function fetchData() {
@@ -77,6 +79,7 @@ function HomePage() {
                 key={i}
                 value={button.name}
                 className="w-5/12 align-middle p-2 px-4 mx-1 rounded-md cursor-pointer hover:scale-105 ease-in-out duration-300"
+                onClick={() => navigate(`/product/${button._id}`)}
               >
                 <div className="flex flex-col relative justify-center ">
                   <img
@@ -86,7 +89,7 @@ function HomePage() {
                     alt=""
                   />
 
-                  <h1 className="absolute bottom-0 text-black bg-slate-300 xs:text-[10px] xs:w-full">
+                  <h1 className="absolute bottom-0 text-black bg-slate-300 xs:text-[10px] xs:w-full" >
                     <span className="font-bold">{button.name}</span>
                   </h1>
                 </div>

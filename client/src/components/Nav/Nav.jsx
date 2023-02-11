@@ -91,18 +91,18 @@ function Nav() {
                 </li>
                 <li className="flex flex-col ">
                   <div className="flex flex-row">
-                  <ShoppingBagIcon className="m-3 " />
-                  <button
-                    className="flex flex-col"
-                    onClick={() => {
-                      setToggleList(!list);
-                    }}
-                  >
-                    <h3 className="block py-2 pl-3 pr-4 text-black focus:text-black border-b border-gray-100">Product</h3>
-                    
-                  </button>
+                    <ShoppingBagIcon className="m-3 " />
+                    <button
+                      className="flex flex-col"
+                      onClick={() => {
+                        setToggleList(!list);
+                      }}
+                    >
+                      <h3 className="block py-2 pl-3 pr-4 text-black focus:text-black border-b border-gray-100">
+                        Product
+                      </h3>
+                    </button>
                   </div>
-                  
 
                   {list ? (
                     <div className="flex flex-col pl-14">
@@ -153,7 +153,7 @@ function Nav() {
                   <div className="flex flex-row gap-6 mt-6">
                     <li>
                       <Link to="/login">
-                        <Button variant="contained" color="inherit" >
+                        <Button variant="contained" color="inherit">
                           Login
                         </Button>
                       </Link>
@@ -279,17 +279,15 @@ function Nav() {
 
             {isAuth.user != null ? (
               <li>
-                <Link to="/loggout">
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      dispatch(setLogout());
-                      setToggleButton(!toggleButton);
-                    }}
-                  >
-                    logOut
-                  </Button>
-                </Link>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(setLogout());
+                    setToggleButton(!toggleButton);
+                  }}
+                >
+                  logOut
+                </Button>
               </li>
             ) : (
               <div className="flex flex-row gap-6">
