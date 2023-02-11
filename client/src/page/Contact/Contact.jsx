@@ -22,7 +22,6 @@ function Contact() {
         }}
         onSubmit={async (values) => {
           try {
-            console.log(values);
             const response = await registerUser(values);
             if (response) {
               navigate("/");

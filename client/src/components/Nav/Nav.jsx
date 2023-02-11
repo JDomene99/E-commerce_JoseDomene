@@ -55,7 +55,7 @@ function Nav() {
             {toggleButton ? (
               ""
             ) : (
-              <ul className="z-50 absolute top-0 left-0 list-none flex flex-col pl-5 pr-40 pb-3 text-xl border border-gray-100 rounded-lg bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <ul className="z-50 absolute top-0 left-0 list-none flex flex-col pl-5 w-full pb-3 text-xl border border-gray-100 rounded-lg bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                 <li>
                   <button
                     type="button"
@@ -190,7 +190,7 @@ function Nav() {
         </nav>
       ) : (
         //Desktop Nav
-        <ul className="list-none md:text-xl flex flex-row justify-between xs:gap-20 2xl:px-40 py-5 md:px-10">
+        <ul className="list-none md:text-xl flex flex-row justify-between xs:gap-20 2xl:px-10 py-5 md:px-10">
           <div className="flex flex-row flex-wrap gap-x-10">
             <li>
               <Link to="/">Home</Link>

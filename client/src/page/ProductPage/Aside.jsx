@@ -8,7 +8,6 @@ import { useMediaQuery } from "@mui/material";
 import NavProducts from "./NavProducts";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import CloseIcon from '@mui/icons-material/Close';
-import Nav from "../../components/Nav/Nav";
 
 function Aside({ type }) {
   const isNonMobileScreens = useMediaQuery("(min-width: 970px)");
@@ -135,7 +134,7 @@ function Aside({ type }) {
                     setToglleIcon(!toglleIcon);
                   }}
                 >
-                  <h3 className="font-bold">Filter By Category</h3>
+                  <h3 className="font-bold my-2">Filter By Category</h3>
                   {toglleIcon ? (
                     <KeyboardArrowDownIcon />
                   ) : (

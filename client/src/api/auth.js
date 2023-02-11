@@ -10,9 +10,7 @@ export const checkUser = async (user) => {
   };
 
   export const registerUser = async (user) => {
-
-    console.log(user)
-    
+   
     const response = await fetch("http://localhost:4000/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

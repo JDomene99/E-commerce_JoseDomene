@@ -61,7 +61,6 @@ export const cartSlice = createSlice({
         (item) => item._id == action.payload._id
       );
       if (removeItem2) {
-        console.log(removeItem.totalPrice);
         state.total -= removeItem2.totalPrice;
       }
       state.cart = removeItem;

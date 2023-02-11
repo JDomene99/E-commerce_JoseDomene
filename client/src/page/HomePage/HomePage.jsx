@@ -30,7 +30,7 @@ function HomePage() {
   };
 
   return (
-    <div className="2xl:px-10">
+    <div className="">
       <section className="bg-contain bg-no-repeat mx">
         <img src={homePage} alt="" />
       </section>
