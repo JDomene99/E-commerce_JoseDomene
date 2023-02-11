@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllProduct, insertProduct, deleteProduct, getProduct, updateProduct, getProductSorter,getProductFilter, getProductBySize,getProductAllFilter,getbyName } from "../controllers/productController.js";
+import { getAllProduct, insertProduct, deleteProduct, getProduct, updateProduct, getProductSorter,getProductFilter, getProductBySize, } from "../controllers/productController.js";
 
   
 const router = Router();
@@ -16,10 +16,6 @@ router.get("/products/sort/:order", getProductSorter);
 router.get("/products/category/:type", getProductFilter);
 
 router.get("/products/:size", getProductBySize);
-
-router.get("/products/type/:type/name/:name/size/:size", getProductAllFilter);
-
-router.get("/products/name/:name", getbyName);
 
 router.put("/product/:id", updateProduct);
 
