@@ -16,6 +16,10 @@ import { persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if( process.env.NODE_ENV === 'production') disableReactDevTools();
+
 const reducers = combineReducers({ user : userReducer, cart : cartReducer, product : productReducer});
 
 const persistConfig = { key: "root", storage, version: 1 };
