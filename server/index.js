@@ -4,7 +4,6 @@ import { fileURLToPath } from "url";
 import path from "path";
 import cors from "cors";
 import multer from "multer";
-import { insertProduct } from "./controllers/productController.js";
 import UserRoutes from "./routes/userRoutes.js";
 import ProductRoutes from "./routes/productsRoutes.js";
 import dbShop from "./db/db.js";
