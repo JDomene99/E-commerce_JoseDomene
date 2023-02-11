@@ -1,5 +1,7 @@
+const api = 'https://ecommerce-api-5qsx.onrender.com'
+// const api = '${api}'
 export const getProductsSorter = async (sort) => {
-  const response = await fetch(`http://localhost:4000/products/sort/${sort}`);
+  const response = await fetch(`${api}/products/sort/${sort}`);
   const data = await response.json();
 
   return data;
@@ -7,15 +9,15 @@ export const getProductsSorter = async (sort) => {
 export const getProductFilter = async (type) => {
   let url = "";
   type === "all"
-    ? (url = `http://localhost:4000/products/${type}`)
-    : (url = `http://localhost:4000/products/category/${type}`);
+    ? (url = `${api}/products/${type}`)
+    : (url = `${api}/products/category/${type}`);
 
   const response = await fetch(url);
   const data = await response.json();
   return data;
 };
 export const getProductsBySize = async (size) => {
-  const response = await fetch(`http://localhost:4000/products/${size}`);
+  const response = await fetch(`${api}/products/${size}`);
   const data = await response.json();
 
   return data;
@@ -23,7 +25,7 @@ export const getProductsBySize = async (size) => {
 
 export const insertProduct = async (product) => {
   try {
-    const response = await fetch("http://localhost:4000/product", {
+    const response = await fetch(`${api}/product`, {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify(product),
@@ -42,7 +44,7 @@ export const insertProduct = async (product) => {
 
 export const getProduct = async (id) => {
   try {
-    const response = await fetch(`http://localhost:4000/product/${id}`);
+    const response = await fetch(`${api}/product/${id}`);
     const data = await response.json();
 
     return data;

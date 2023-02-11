@@ -1,6 +1,8 @@
+const api = 'https://ecommerce-api-5qsx.onrender.com'
+// const api = 'http://localhost:4000'
 export const checkUser = async (user) => {
   
-    const response = await fetch("http://localhost:4000/auth/login", {
+    const response = await fetch(`${api}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
@@ -11,7 +13,7 @@ export const checkUser = async (user) => {
 
   export const registerUser = async (user) => {
    
-    const response = await fetch("http://localhost:4000/auth/register", {
+    const response = await fetch(`${api}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
