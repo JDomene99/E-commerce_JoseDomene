@@ -11,8 +11,6 @@ router.post("/auth/register", register);
 
 router.get("/users", getAllUsers);
 
-// router.get("/user", getAllUsers);
-
 router.delete("/user/:id", deleteUser);
 
 
